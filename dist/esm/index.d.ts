@@ -1,1 +1,1 @@
-export * from './customHook';
+export * from './ComponentZodError';
