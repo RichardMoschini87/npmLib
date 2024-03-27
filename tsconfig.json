@@ -10,7 +10,7 @@
         "strict": true,
         "noImplicitAny": true,
         "noUnusedLocals": true,
-        "sourceMap": true,
+        "sourceMap": false,
         "moduleResolution": "node",
         "outDir": "dist/esm",
         "jsx": "react-jsx"

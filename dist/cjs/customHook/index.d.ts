@@ -1,1 +1,2 @@
-export * from './UseFormZodError';
+export * from './HandlerZodErrors';
+export * from './ValidationZodComponent';
