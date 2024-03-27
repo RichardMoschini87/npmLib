@@ -2,9 +2,9 @@ import { useState, createContext } from 'react';
 import { ZodError, ZodObject } from 'zod';
 import { handleZodException } from './HandlerZodErrors';
 
-interface ValidationProps<T> {
+interface ValidationProps {
     zodObject: ZodObject<any>;
-    objectToValidate: T;
+    objectToValidate: any;
     operationId: string;
     childrens: JSX.Element[];
 }
@@ -16,7 +16,7 @@ export interface ArgContext {
 export const ZodErrorBox = createContext<ArgContext | null>(null);
 
 /** Component Validation ZodError to manage error form Zod*/
-export function ValidationZodComponent<T>({ zodObject, objectToValidate, childrens }: ValidationProps<T>) {
+export function ValidationZodComponent<T>({ zodObject, objectToValidate, childrens }: ValidationProps) {
     const [output, setOutput] = useState<T>();
 
     const validation = () => {
