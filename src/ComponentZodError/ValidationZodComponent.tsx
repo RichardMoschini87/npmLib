@@ -1,34 +1,30 @@
-import { useState, createContext, useEffect } from 'react';
-import { ZodError, ZodObject } from 'zod';
+import { useEffect } from 'react';
+import { ZodObject } from 'zod';
 import { handleZodException } from './HandlerZodErrors';
 
+export const ZOD_ERROR_ITEM = 'zodError_item';
 interface ValidationProps {
     zodObject: ZodObject<any>;
     objectToValidate: any;
     childrens: any;
 }
-export interface ArgContext {
-    setObject?: (input: any) => void;
-    getObject?: any;
-}
-/** Context pick errors data after valid form zod error */
-export const ZodErrorBox = createContext<ArgContext | null>(null);
-
 /** Component Validation ZodError to manage error form Zod*/
-export function ValidationZodComponent<T>({ zodObject, objectToValidate, childrens }: ValidationProps) {
-    const [output, setOutput] = useState<T>();
+export function ValidationZodComponent({ zodObject, objectToValidate, childrens }: ValidationProps) {
+    console.log(objectToValidate);
+    console.log(zodObject);
 
     useEffect(() => {
-        try {
-            zodObject.parse(objectToValidate);
-        } catch (error: any) {
-            if (error instanceof ZodError) {
-                console.error(error);
+        if (objectToValidate) {
+            try {
+                zodObject.parse(objectToValidate);
+            } catch (error: any) {
+                console.debug(error);
                 let out = handleZodException(error);
-                setOutput(out);
+                console.debug(out);
+                localStorage.setItem(ZOD_ERROR_ITEM, JSON.stringify(out));
             }
         }
     }, [objectToValidate]);
 
-    return <ZodErrorBox.Provider value={{ getObject: output, setObject: setOutput }}>{childrens}</ZodErrorBox.Provider>;
+    return <>{childrens}</>;
 }

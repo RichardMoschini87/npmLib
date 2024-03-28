@@ -1,8 +1,8 @@
 import { ZodError } from 'zod';
+import { ZOD_ERROR_ITEM } from './ValidationZodComponent';
 
 /** Manage Zod error from schema and return objects input with error message and function to run validation
  */
-
 export const handleZodException = (e: ZodError) => {
     let formError: any = {};
     e.errors.forEach((er) => {
@@ -47,3 +47,7 @@ export const handleZodException = (e: ZodError) => {
     });
     return formError;
 };
+
+const getZodErrorFromLocalStorage = () => JSON.parse(localStorage.getItem(ZOD_ERROR_ITEM) ?? ``);
+/** Return shape correct of object zod errors, otherwhise return undefined */
+export const getZodErrorObject = () => (getZodErrorFromLocalStorage() !== '' ? getZodErrorFromLocalStorage() : undefined);
